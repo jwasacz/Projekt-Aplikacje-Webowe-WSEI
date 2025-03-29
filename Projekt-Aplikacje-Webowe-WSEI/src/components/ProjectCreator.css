@@ -1,0 +1,132 @@
+.crud-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f6fd;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .crud-form {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+  }
+  
+  .crud-form h2 {
+    color: #4f4cb0;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .crud-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0f0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.3s;
+  }
+  
+  .crud-input:focus {
+    border-color: #4f4cb0;
+  }
+  
+  .crud-button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background-color: #eeeef7;
+    color: #4f4cb0;
+  }
+  
+  .crud-button.add {
+    background-color: #4f4cb0;
+    color: white;
+  }
+  
+  .crud-button.delete {
+    background-color: #f8e9e9;
+    color: #e86060;
+  }
+  
+  .crud-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .crud-list {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .crud-list h2 {
+    color: #4f4cb0;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .crud-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .crud-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f8f8fd;
+    border-radius: 10px;
+    border-left: 3px solid #4f4cb0;
+  }
+  
+  .crud-item:nth-child(2n) {
+    border-left: 3px solid #e25cb0;
+  }
+  
+  .crud-item:nth-child(3n) {
+    border-left: 3px solid #5cb0e2;
+  }
+  
+  .crud-item-text {
+    font-weight: 500;
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .crud-button {
+    margin-left: 8px;
+  }
+  
+  @media (min-width: 768px) {
+    .crud-container {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    
+    .crud-form {
+      width: 35%;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+    
+    .crud-list {
+      flex-grow: 1;
+    }
+  }

@@ -1,15 +1,19 @@
-import './App.css'
-import Crud from './components/crud'
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Crud from "./components/ProjectCreator";
+import ProjectDetails from "./components/ProjectDetails";
+import "./App.css";
 
 function App() {
-
   return (
-    <>
-     <h1>Projekt aplikacje webowe</h1>
-     <Crud/>
-    </>
-  )
+    <div className="app-container">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Crud />} />
+          <Route path="/project/:projectId" element={<ProjectDetails />} />
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
-export default App
+export default App;
