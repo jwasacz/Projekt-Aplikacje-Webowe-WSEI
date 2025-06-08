@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Crud from "./components/ProjectCreator";
-import ProjectDetails from "./components/ProjectDetails";
+import ProjectDetails from "./components/StoryCreator";
 import "./App.css";
 
 function App() {

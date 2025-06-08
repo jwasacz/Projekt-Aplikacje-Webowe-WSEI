@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import StoryService from "../services/StroryCreatorService";
-import { Story } from "../types/storyModel";
-import StoryComponent from "../components/Story";
-import "./ProjectDetails.css";
+import { Story, StoryStatus } from "../types/storyModel";
+import StoryComponent from "./Story";
+import "./StoryCreator.css";
 
 function ProjectDetails() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -27,7 +27,7 @@ function ProjectDetails() {
       date: new Date(),
       ProjectId: Number(projectId),
       authorId: 1,
-      status: "ToDo",
+      status: StoryStatus.ToDo,
     };
 
     StoryService.addStory(newTask);
@@ -41,15 +41,24 @@ function ProjectDetails() {
         <h1>Project {projectId} Details</h1>
         <div className="project-stats">
           <div className="stat-item">
-            <span className="stat-value">{stories.filter(s => s.status === "ToDo").length}</span>
+            <span className="stat-value">
+              {stories.filter((s) => s.status === StoryStatus.ToDo).length}
+            </span>
             <span className="stat-label">To Do</span>
           </div>
           <div className="stat-item">
-            <span className="stat-value">{stories.filter(s => s.status === "InProgress").length}</span>
+            <span className="stat-value">
+              {
+                stories.filter((s) => s.status === StoryStatus.InProgress)
+                  .length
+              }
+            </span>
             <span className="stat-label">In Progress</span>
           </div>
           <div className="stat-item">
-            <span className="stat-value">{stories.filter(s => s.status === "Done").length}</span>
+            <span className="stat-value">
+              {stories.filter((s) => s.status === StoryStatus.Done).length}
+            </span>
             <span className="stat-label">Done</span>
           </div>
         </div>
@@ -96,10 +105,16 @@ function ProjectDetails() {
         {["ToDo", "InProgress", "Done"].map((status) => (
           <div key={status} className="kanban-column">
             <div className="column-header">
-              <h2>{status === "ToDo" ? "To Do" : 
-                   status === "InProgress" ? "In Progress" : "Done"}</h2>
+              <h2>
+                {status === "ToDo"
+                  ? "To Do"
+                  : status === "InProgress"
+                  ? "In Progress"
+                  : "Done"}
+              </h2>
               <span className="task-count">
-                {stories.filter((story) => story.status === status).length} tasks
+                {stories.filter((story) => story.status === status).length}{" "}
+                tasks
               </span>
             </div>
             <div className="story-wrapper">

@@ -6,6 +6,13 @@ export interface Story {
     date: Date;
     ProjectId: number;
     authorId: number;
-    status: "ToDo" | "InProgress" | "Done";
+    status: StoryStatus;    
+  }
+
+  export enum StoryStatus{
+    ToDo= "todo",
+    InProgress= "in_progress",
+    Done="done"
   }
   
+

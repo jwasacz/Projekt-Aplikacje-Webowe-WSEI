@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Story.css";
 import { Story } from "../types/storyModel"; 
+import StoryDetails from "./StoryDetails";
+
 
 interface StoryProps {
   story: Story;
@@ -19,7 +21,10 @@ const StoryComponent: React.FC<StoryProps> = ({ story, updateStatus }) => {
     });
   };
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
+    <>
     <div className="story-card">
       <div className="story-header">
         <span className={`priority-badge ${story.priority.toLowerCase()}`}>
@@ -36,6 +41,14 @@ const StoryComponent: React.FC<StoryProps> = ({ story, updateStatus }) => {
           </div>
           <span className="author-name">Author {story.authorId}</span>
         </div>
+
+       
+          <button className="story-details" onClick={() => setIsPopupOpen(true)}>
+            Details
+          </button>
+
+      
+
         <select
           className="status-select"
           value={story.status}
@@ -52,6 +65,17 @@ const StoryComponent: React.FC<StoryProps> = ({ story, updateStatus }) => {
         </select>
       </div>
     </div>
+
+{isPopupOpen && (
+  <div className="modal-overlay" onClick={() => setIsPopupOpen(false)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <StoryDetails story={story} onClose={() => setIsPopupOpen(false)} />
+    </div>
+  </div>
+)}
+
+
+    </>
   );
 };
 
