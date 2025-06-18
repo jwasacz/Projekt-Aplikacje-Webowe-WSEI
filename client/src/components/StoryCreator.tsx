@@ -35,6 +35,12 @@ function ProjectDetails() {
     setNewStory({});
   };
 
+  const statusMap: { [key: string]: StoryStatus } = {
+    ToDo: StoryStatus.ToDo,
+    InProgress: StoryStatus.InProgress,
+    Done: StoryStatus.Done,
+  };
+
   return (
     <div className="project-details-container">
       <div className="project-details-header">
@@ -48,10 +54,7 @@ function ProjectDetails() {
           </div>
           <div className="stat-item">
             <span className="stat-value">
-              {
-                stories.filter((s) => s.status === StoryStatus.InProgress)
-                  .length
-              }
+              {stories.filter((s) => s.status === StoryStatus.InProgress).length}
             </span>
             <span className="stat-label">In Progress</span>
           </div>
@@ -102,29 +105,37 @@ function ProjectDetails() {
       </div>
 
       <div className="kanban-board">
-        {["ToDo", "InProgress", "Done"].map((status) => (
-          <div key={status} className="kanban-column">
+        {["ToDo", "InProgress", "Done"].map((statusKey) => (
+          <div key={statusKey} className="kanban-column">
             <div className="column-header">
               <h2>
-                {status === "ToDo"
+                {statusKey === "ToDo"
                   ? "To Do"
-                  : status === "InProgress"
+                  : statusKey === "InProgress"
                   ? "In Progress"
                   : "Done"}
               </h2>
               <span className="task-count">
-                {stories.filter((story) => story.status === status).length}{" "}
+                {
+                  stories.filter((story) => story.status === statusMap[statusKey])
+                    .length
+                }{" "}
                 tasks
               </span>
             </div>
             <div className="story-wrapper">
               {stories
-                .filter((story) => story.status === status)
+                .filter((story) => story.status === statusMap[statusKey])
                 .map((story) => (
                   <StoryComponent
                     key={story.id}
                     story={story}
-                    updateStatus={StoryService.updateStoryStatus}
+                    updateStatus={(id, newStatus) => {
+                      StoryService.updateStoryStatus(id, newStatus);
+                      setStories(
+                        StoryService.getStoriesByProject(Number(projectId))
+                      );
+                    }}
                   />
                 ))}
             </div>
