@@ -5,11 +5,11 @@ import StoryDetails from "./StoryDetails";
 
 interface StoryProps {
   story: Story;
-  updateStatus: (id: number, newStatus: StoryStatus) => void;
+  updateStatus: (id: string, newStatus: StoryStatus) => void;
 }
 
 const StoryComponent: React.FC<StoryProps> = ({ story, updateStatus }) => {
-  const formatDate = (date: Date) => {
+  const formatDate = (date: Date | string) => {
     if (!(date instanceof Date)) {
       date = new Date(date);
     }
@@ -52,7 +52,7 @@ const StoryComponent: React.FC<StoryProps> = ({ story, updateStatus }) => {
             className="status-select"
             value={story.status}
             onChange={(e) =>
-              updateStatus(story.id, e.target.value as StoryStatus)
+              updateStatus(story._id!, e.target.value as StoryStatus)
             }
           >
             <option value={StoryStatus.ToDo}>To Do</option>

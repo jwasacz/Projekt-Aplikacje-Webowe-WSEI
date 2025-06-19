@@ -10,29 +10,36 @@ function Crud() {
   const [description, setDescription] = useState<string>("");
   const navigate = useNavigate(); 
 
+  // Pobieranie projektów z bazy po załadowaniu komponentu
   useEffect(() => {
-    setProjects(ProjectService.getProject());
+    ProjectService.getProjects().then(setProjects).catch(console.error);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !description.trim()) return;
 
-    const newProject: Project = {
-      id: Date.now(),
-      name,
-      description,
-    };
+    const newProject = { name, description };
 
-    ProjectService.addProject(newProject);
-    setProjects(ProjectService.getProject());
-    setName("");
-    setDescription("");
+    try {
+      await ProjectService.addProject(newProject);
+      const updatedProjects = await ProjectService.getProjects();
+      setProjects(updatedProjects);
+      setName("");
+      setDescription("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleDelete = (id: number) => {
-    ProjectService.deleteProject(id);
-    setProjects(ProjectService.getProject());
+  const handleDelete = async (id: string) => {
+    try {
+      await ProjectService.deleteProject(id);
+      const updatedProjects = await ProjectService.getProjects();
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -64,18 +71,18 @@ function Crud() {
         <h2>Lista projektów</h2>
         <ul>
           {projects.map((proj) => (
-            <li key={proj.id} className="crud-item">
+            <li key={proj._id} className="crud-item">
               <span className="crud-item-text">
                 {proj.name}: {proj.description}
               </span>
               <button
-                onClick={() => handleDelete(proj.id)}
+                onClick={() => handleDelete(proj._id!)}
                 className="crud-button delete"
               >
                 Usuń
               </button>
               <button
-                onClick={() => navigate(`/project/${proj.id}`)}
+                onClick={() => navigate(`/project/${proj._id}`)}
                 className="crud-button"
               >
                 Szczegóły
