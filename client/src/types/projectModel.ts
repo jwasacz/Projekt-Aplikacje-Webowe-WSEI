@@ -1,5 +1,5 @@
 export interface Project {
-  _id?: string; // może nie istnieć przed zapisaniem
+  _id?: string; 
   name: string;
   description: string;
 }

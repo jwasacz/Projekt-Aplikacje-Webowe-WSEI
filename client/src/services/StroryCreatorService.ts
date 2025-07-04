@@ -28,6 +28,14 @@ class StoryService {
     if (!res.ok) throw new Error("Failed to update status");
     return await res.json();
   }
+
+  static async deleteStory(id: string): Promise<void> {
+    const res = await fetch(`${API_URL}/stories/${id}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw new Error("Failed to delete story");
+  }
 }
+
 
 export default StoryService;

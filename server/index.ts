@@ -5,7 +5,7 @@ import cors from "cors";
 import { connectDB } from "./mongodb/connect";
 import userRoutes from "./routes/userRoutes";
 import projectRoutes from "./routes/projectRoutes";
-import storyRoutes from "./routes/storyRoutes";  // <-- dodane
+import storyRoutes from "./routes/storyRoutes"; 
 
 const app = express();
 const port = 3000;
@@ -89,7 +89,7 @@ app.post("/refreshToken", (req: Request, res: Response) => {
 
 app.use("/", userRoutes);
 app.use("/", projectRoutes);
-app.use("/", storyRoutes);  // <-- podpięcie nowych tras
+app.use("/", storyRoutes); 
 
 app.listen(port, () => {
   console.log(`Serwer działa na porcie ${port}`);

@@ -54,3 +54,18 @@ export const updateStoryStatus = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Błąd aktualizacji statusu" });
   }
 };
+
+export const deleteStory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deleted = await StoryModel.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ error: "Nie znaleziono historyjki do usunięcia" });
+    }
+
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: "Błąd usuwania historyjki" });
+  }
+};
